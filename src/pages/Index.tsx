@@ -12,7 +12,7 @@ import KAILogo from '../components/KAILogo';
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-100 via-gray-50 to-gray-200">
+    <div className="min-h-screen bg-gradient-to-br from-gray-100 via-gray-50 to-gray-200 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 transition-colors">
       <Header />
       
       <div className="max-w-7xl mx-auto p-6">
