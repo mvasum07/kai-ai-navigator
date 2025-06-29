@@ -9,6 +9,7 @@ import StocksCryptoWidget from '../components/StocksCryptoWidget';
 import WeatherWidget from '../components/WeatherWidget';
 import SocialLinks from '../components/SocialLinks';
 import KAILogo from '../components/KAILogo';
+import KAIWidget from '../components/KAIWidget';
 
 const Index = () => {
   return (
@@ -33,6 +34,7 @@ const Index = () => {
           
           {/* Right Column */}
           <div className="col-span-3 space-y-6">
+            <KAIWidget />
             <NewsWidget />
             <StocksCryptoWidget />
           </div>
