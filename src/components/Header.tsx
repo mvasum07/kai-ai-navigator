@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Search, Moon, Sun } from 'lucide-react';
+import { Search, Moon, Sun, ExternalLink } from 'lucide-react';
 import { useTheme } from '../contexts/ThemeContext';
 
 const Header = () => {
@@ -10,8 +10,9 @@ const Header = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (url.trim()) {
-      // In a real implementation, this would open in the built-in browser
-      window.open(url.startsWith('http') ? url : `https://${url}`, '_blank');
+      // Open in new tab/window
+      const finalUrl = url.startsWith('http') ? url : `https://${url}`;
+      window.open(finalUrl, '_blank', 'noopener,noreferrer');
       setUrl('');
     }
   };
@@ -35,9 +36,11 @@ const Header = () => {
               />
               <button
                 type="submit"
-                className="absolute right-2 top-1/2 transform -translate-y-1/2 p-2 text-gray-400 hover:text-blue-500 transition-colors"
+                className="absolute right-2 top-1/2 transform -translate-y-1/2 p-2 text-gray-400 hover:text-blue-500 transition-colors flex items-center gap-1"
+                title="Open in new tab"
               >
-                <Search size={20} />
+                <Search size={16} />
+                <ExternalLink size={12} />
               </button>
             </div>
           </div>
