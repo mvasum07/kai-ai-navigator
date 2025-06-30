@@ -10,72 +10,96 @@ import WeatherWidget from '../components/WeatherWidget';
 import SocialLinks from '../components/SocialLinks';
 import KAILogo from '../components/KAILogo';
 import KAIWidget from '../components/KAIWidget';
-import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from '../components/ui/resizable';
+import DraggableResizableWidget from '../components/DraggableResizableWidget';
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-100 via-gray-50 to-gray-200 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 transition-colors">
+    <div className="min-h-screen bg-gradient-to-br from-gray-100 via-gray-50 to-gray-200 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 transition-colors relative overflow-hidden">
       <Header />
       
-      <div className="max-w-7xl mx-auto p-6 h-screen">
-        <ResizablePanelGroup direction="horizontal" className="gap-6">
-          {/* Left Column */}
-          <ResizablePanel defaultSize={25} minSize={20}>
-            <ResizablePanelGroup direction="vertical" className="gap-6">
-              <ResizablePanel defaultSize={35} minSize={15}>
-                <NotesWidget />
-              </ResizablePanel>
-              <ResizableHandle withHandle />
-              <ResizablePanel defaultSize={30} minSize={15}>
-                <CalendarWidget />
-              </ResizablePanel>
-              <ResizableHandle withHandle />
-              <ResizablePanel defaultSize={25} minSize={15}>
-                <RemindersWidget />
-              </ResizablePanel>
-              <ResizableHandle withHandle />
-              <ResizablePanel defaultSize={10} minSize={5}>
-                <SocialLinks />
-              </ResizablePanel>
-            </ResizablePanelGroup>
-          </ResizablePanel>
-          
-          <ResizableHandle withHandle />
-          
-          {/* Center Column */}
-          <ResizablePanel defaultSize={50} minSize={30}>
-            <ResizablePanelGroup direction="vertical" className="gap-6">
-              <ResizablePanel defaultSize={40} minSize={20}>
-                <WeatherWidget />
-              </ResizablePanel>
-              <ResizableHandle withHandle />
-              <ResizablePanel defaultSize={60} minSize={30}>
-                <div className="flex items-center justify-center h-full">
-                  <KAILogo />
-                </div>
-              </ResizablePanel>
-            </ResizablePanelGroup>
-          </ResizablePanel>
-          
-          <ResizableHandle withHandle />
-          
-          {/* Right Column */}
-          <ResizablePanel defaultSize={25} minSize={20}>
-            <ResizablePanelGroup direction="vertical" className="gap-6">
-              <ResizablePanel defaultSize={40} minSize={20}>
-                <KAIWidget />
-              </ResizablePanel>
-              <ResizableHandle withHandle />
-              <ResizablePanel defaultSize={35} minSize={20}>
-                <NewsWidget />
-              </ResizablePanel>
-              <ResizableHandle withHandle />
-              <ResizablePanel defaultSize={25} minSize={15}>
-                <StocksCryptoWidget />
-              </ResizablePanel>
-            </ResizablePanelGroup>
-          </ResizablePanel>
-        </ResizablePanelGroup>
+      <div className="relative w-full h-screen pt-16">
+        {/* Notes Widget */}
+        <DraggableResizableWidget
+          initialPosition={{ x: 50, y: 80 }}
+          initialSize={{ width: 300, height: 400 }}
+          title="Notes"
+        >
+          <NotesWidget />
+        </DraggableResizableWidget>
+
+        {/* Calendar Widget */}
+        <DraggableResizableWidget
+          initialPosition={{ x: 50, y: 500 }}
+          initialSize={{ width: 300, height: 350 }}
+          title="Calendar"
+        >
+          <CalendarWidget />
+        </DraggableResizableWidget>
+
+        {/* Reminders Widget */}
+        <DraggableResizableWidget
+          initialPosition={{ x: 370, y: 500 }}
+          initialSize={{ width: 280, height: 300 }}
+          title="Reminders"
+        >
+          <RemindersWidget />
+        </DraggableResizableWidget>
+
+        {/* Weather Widget */}
+        <DraggableResizableWidget
+          initialPosition={{ x: 370, y: 80 }}
+          initialSize={{ width: 400, height: 300 }}
+          title="Weather"
+        >
+          <WeatherWidget />
+        </DraggableResizableWidget>
+
+        {/* KAI Logo */}
+        <DraggableResizableWidget
+          initialPosition={{ x: 800, y: 400 }}
+          initialSize={{ width: 300, height: 200 }}
+          title="KAI Logo"
+        >
+          <div className="flex items-center justify-center h-full">
+            <KAILogo />
+          </div>
+        </DraggableResizableWidget>
+
+        {/* KAI Widget */}
+        <DraggableResizableWidget
+          initialPosition={{ x: 800, y: 80 }}
+          initialSize={{ width: 350, height: 500 }}
+          title="KAI Earnings"
+        >
+          <KAIWidget />
+        </DraggableResizableWidget>
+
+        {/* News Widget */}
+        <DraggableResizableWidget
+          initialPosition={{ x: 1200, y: 80 }}
+          initialSize={{ width: 320, height: 400 }}
+          title="News"
+        >
+          <NewsWidget />
+        </DraggableResizableWidget>
+
+        {/* Stocks/Crypto Widget */}
+        <DraggableResizableWidget
+          initialPosition={{ x: 1200, y: 500 }}
+          initialSize={{ width: 320, height: 300 }}
+          title="Stocks/Crypto"
+        >
+          <StocksCryptoWidget />
+        </DraggableResizableWidget>
+
+        {/* Social Links */}
+        <DraggableResizableWidget
+          initialPosition={{ x: 370, y: 400 }}
+          initialSize={{ width: 200, height: 100 }}
+          title="Social Links"
+        >
+          <SocialLinks />
+        </DraggableResizableWidget>
       </div>
     </div>
   );
