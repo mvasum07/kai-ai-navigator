@@ -11,11 +11,16 @@ import SocialLinks from '../components/SocialLinks';
 import KAILogo from '../components/KAILogo';
 import KAIWidget from '../components/KAIWidget';
 import ResizableWidget from '../components/ResizableWidget';
+import ThemeCustomizer from '../components/ThemeCustomizer';
+import { useDashboardTheme } from '../contexts/DashboardThemeContext';
 
 const Index = () => {
+  const { currentScheme } = useDashboardTheme();
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-100 via-gray-50 to-gray-200 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 transition-colors overflow-hidden">
+    <div className={`min-h-screen ${currentScheme.background} transition-colors overflow-hidden`}>
       <Header />
+      <ThemeCustomizer />
       
       <div className="relative w-full h-screen pt-16">
         {/* Left Column Widgets */}
@@ -25,6 +30,7 @@ const Index = () => {
           initialX={20}
           initialY={20}
           title="Notes"
+          widgetId="notes"
         >
           <NotesWidget />
         </ResizableWidget>
@@ -35,6 +41,7 @@ const Index = () => {
           initialX={20}
           initialY={340}
           title="Calendar"
+          widgetId="calendar"
         >
           <CalendarWidget />
         </ResizableWidget>
@@ -45,6 +52,7 @@ const Index = () => {
           initialX={20}
           initialY={640}
           title="Reminders"
+          widgetId="reminders"
         >
           <RemindersWidget />
         </ResizableWidget>
@@ -55,6 +63,7 @@ const Index = () => {
           initialX={20}
           initialY={910}
           title="Social Links"
+          widgetId="social"
         >
           <SocialLinks />
         </ResizableWidget>
@@ -66,6 +75,7 @@ const Index = () => {
           initialX={360}
           initialY={20}
           title="Weather"
+          widgetId="weather"
         >
           <WeatherWidget />
         </ResizableWidget>
@@ -76,6 +86,7 @@ const Index = () => {
           initialX={360}
           initialY={340}
           title="KAI Logo"
+          widgetId="kai-logo"
         >
           <div className="flex items-center justify-center h-full">
             <KAILogo />
@@ -89,6 +100,7 @@ const Index = () => {
           initialX={780}
           initialY={20}
           title="KAI Earnings"
+          widgetId="kai-earnings"
         >
           <KAIWidget />
         </ResizableWidget>
@@ -99,6 +111,7 @@ const Index = () => {
           initialX={780}
           initialY={440}
           title="News"
+          widgetId="news"
         >
           <NewsWidget />
         </ResizableWidget>
@@ -109,6 +122,7 @@ const Index = () => {
           initialX={780}
           initialY={810}
           title="Stocks/Crypto"
+          widgetId="stocks"
         >
           <StocksCryptoWidget />
         </ResizableWidget>

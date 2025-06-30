@@ -1,6 +1,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { Move } from 'lucide-react';
+import { useDashboardTheme } from '../contexts/DashboardThemeContext';
 
 interface ResizableWidgetProps {
   children: React.ReactNode;
@@ -11,6 +12,7 @@ interface ResizableWidgetProps {
   minWidth?: number;
   minHeight?: number;
   title?: string;
+  widgetId: string;
 }
 
 const ResizableWidget: React.FC<ResizableWidgetProps> = ({
@@ -21,7 +23,8 @@ const ResizableWidget: React.FC<ResizableWidgetProps> = ({
   initialY = 0,
   minWidth = 200,
   minHeight = 150,
-  title = "Widget"
+  title = "Widget",
+  widgetId
 }) => {
   const [dimensions, setDimensions] = useState({
     width: initialWidth,
@@ -44,6 +47,11 @@ const ResizableWidget: React.FC<ResizableWidgetProps> = ({
   const [resizeDirection, setResizeDirection] = useState('');
   
   const widgetRef = useRef<HTMLDivElement>(null);
+  const { currentScheme, widgetThemes } = useDashboardTheme();
+
+  // Get custom theme for this widget or use default
+  const widgetTheme = widgetThemes.find(t => t.widgetId === widgetId);
+  const widgetGradient = widgetTheme ? widgetTheme.gradient : currentScheme.widgetDefault;
 
   const handleMouseDown = (e: React.MouseEvent, action: 'drag' | 'resize', direction?: string) => {
     e.preventDefault();
@@ -191,15 +199,14 @@ const ResizableWidget: React.FC<ResizableWidgetProps> = ({
 
       {/* Content */}
       <div 
-        className="w-full h-full overflow-hidden"
-        style={{ 
-          width: '100%', 
-          height: '100%'
-        }}
+        className={`w-full h-full overflow-hidden rounded-2xl ${widgetGradient} p-4 shadow-lg relative`}
       >
-        {React.cloneElement(children as React.ReactElement, {
-          style: { width: '100%', height: '100%' }
-        })}
+        <div className="absolute inset-0 bg-white/10 backdrop-blur-sm rounded-2xl"></div>
+        <div className="relative z-10 h-full">
+          {React.cloneElement(children as React.ReactElement, {
+            style: { width: '100%', height: '100%' }
+          })}
+        </div>
       </div>
     </div>
   );
