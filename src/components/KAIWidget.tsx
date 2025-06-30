@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Coins, Wallet, Timer, TrendingUp } from 'lucide-react';
+import { Coins, Wallet, Timer, TrendingUp, DollarSign } from 'lucide-react';
 import { useKAI } from '../contexts/KAIContext';
 
 const KAIWidget = () => {
@@ -14,10 +14,16 @@ const KAIWidget = () => {
     timeSpent 
   } = useKAI();
 
+  const currentKAIPrice = 0.0000041684; // Current KAI price in USD
+
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
     return `${mins}:${secs.toString().padStart(2, '0')}`;
+  };
+
+  const formatUSDValue = (kaiAmount: number) => {
+    return (kaiAmount * currentKAIPrice).toFixed(8);
   };
 
   return (
@@ -29,12 +35,26 @@ const KAIWidget = () => {
           <h2 className="text-white font-bold text-xl">KAI EARNINGS</h2>
         </div>
         
+        {/* Current KAI Price */}
+        <div className="bg-white/20 p-3 rounded-lg mb-4">
+          <div className="flex items-center gap-1 text-white/80 text-sm mb-1">
+            <DollarSign size={16} />
+            KAI Price
+          </div>
+          <div className="text-white font-bold text-lg">
+            ${currentKAIPrice.toFixed(10)} USD
+          </div>
+        </div>
+        
         <div className="space-y-4">
           {/* Current Balance */}
           <div className="bg-white/20 p-3 rounded-lg">
             <div className="text-white/80 text-sm">Current Balance</div>
             <div className="text-white font-bold text-2xl">
               {balance.toFixed(3)} KAI
+            </div>
+            <div className="text-white/70 text-xs">
+              ≈ ${formatUSDValue(balance)} USD
             </div>
           </div>
           
@@ -47,6 +67,9 @@ const KAIWidget = () => {
               </div>
               <div className="text-white font-semibold">
                 +{dailyEarnings.toFixed(3)} KAI
+              </div>
+              <div className="text-white/70 text-xs">
+                ≈ ${formatUSDValue(dailyEarnings)} USD
               </div>
             </div>
             
@@ -86,6 +109,9 @@ const KAIWidget = () => {
             <div className="text-white/80 text-xs">Total Lifetime Earned</div>
             <div className="text-white font-bold text-lg">
               {totalEarned.toFixed(3)} KAI
+            </div>
+            <div className="text-white/70 text-xs">
+              ≈ ${formatUSDValue(totalEarned)} USD
             </div>
           </div>
         </div>
