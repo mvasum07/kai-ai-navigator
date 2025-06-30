@@ -3,7 +3,7 @@ import React from 'react';
 import { Coins, Wallet, Timer, TrendingUp, DollarSign } from 'lucide-react';
 import { useKAI } from '../contexts/KAIContext';
 
-const KAIWidget = () => {
+const KAIWidget = ({ style }: { style?: React.CSSProperties }) => {
   const { 
     balance, 
     totalEarned, 
@@ -27,30 +27,33 @@ const KAIWidget = () => {
   };
 
   return (
-    <div className="bg-gradient-to-br from-yellow-400 via-orange-500 to-red-500 p-6 rounded-2xl shadow-lg relative overflow-hidden">
+    <div 
+      className="bg-gradient-to-br from-yellow-400 via-orange-500 to-red-500 p-4 rounded-2xl shadow-lg relative overflow-hidden h-full"
+      style={style}
+    >
       <div className="absolute inset-0 bg-white/10 backdrop-blur-sm"></div>
-      <div className="relative z-10">
-        <div className="flex items-center gap-2 mb-4">
-          <Coins className="text-white" size={24} />
-          <h2 className="text-white font-bold text-xl">KAI EARNINGS</h2>
+      <div className="relative z-10 h-full flex flex-col">
+        <div className="flex items-center gap-2 mb-3">
+          <Coins className="text-white" size={20} />
+          <h2 className="text-white font-bold text-lg">KAI EARNINGS</h2>
         </div>
         
         {/* Current KAI Price */}
-        <div className="bg-white/20 p-3 rounded-lg mb-4">
-          <div className="flex items-center gap-1 text-white/80 text-sm mb-1">
-            <DollarSign size={16} />
+        <div className="bg-white/20 p-2 rounded-lg mb-3">
+          <div className="flex items-center gap-1 text-white/80 text-xs mb-1">
+            <DollarSign size={14} />
             KAI Price
           </div>
-          <div className="text-white font-bold text-lg">
+          <div className="text-white font-bold text-sm">
             ${currentKAIPrice.toFixed(10)} USD
           </div>
         </div>
         
-        <div className="space-y-4">
+        <div className="space-y-3 flex-1 overflow-y-auto">
           {/* Current Balance */}
-          <div className="bg-white/20 p-3 rounded-lg">
-            <div className="text-white/80 text-sm">Current Balance</div>
-            <div className="text-white font-bold text-2xl">
+          <div className="bg-white/20 p-2 rounded-lg">
+            <div className="text-white/80 text-xs">Current Balance</div>
+            <div className="text-white font-bold text-lg">
               {balance.toFixed(3)} KAI
             </div>
             <div className="text-white/70 text-xs">
@@ -59,13 +62,13 @@ const KAIWidget = () => {
           </div>
           
           {/* Daily Stats */}
-          <div className="grid grid-cols-2 gap-3">
-            <div className="bg-white/20 p-3 rounded-lg">
+          <div className="grid grid-cols-2 gap-2">
+            <div className="bg-white/20 p-2 rounded-lg">
               <div className="flex items-center gap-1 text-white/80 text-xs mb-1">
-                <TrendingUp size={12} />
+                <TrendingUp size={10} />
                 Today
               </div>
-              <div className="text-white font-semibold">
+              <div className="text-white font-semibold text-sm">
                 +{dailyEarnings.toFixed(3)} KAI
               </div>
               <div className="text-white/70 text-xs">
@@ -73,32 +76,32 @@ const KAIWidget = () => {
               </div>
             </div>
             
-            <div className="bg-white/20 p-3 rounded-lg">
+            <div className="bg-white/20 p-2 rounded-lg">
               <div className="flex items-center gap-1 text-white/80 text-xs mb-1">
-                <Timer size={12} />
+                <Timer size={10} />
                 Active Time
               </div>
-              <div className="text-white font-semibold">
+              <div className="text-white font-semibold text-sm">
                 {formatTime(timeSpent)}
               </div>
             </div>
           </div>
           
           {/* Wallet Connection */}
-          <div className="bg-white/20 p-3 rounded-lg">
+          <div className="bg-white/20 p-2 rounded-lg">
             {isWalletConnected ? (
               <div>
                 <div className="text-white/80 text-xs mb-1">Wallet Connected</div>
-                <div className="text-white font-semibold text-sm">
+                <div className="text-white font-semibold text-xs">
                   {walletAddress}
                 </div>
               </div>
             ) : (
               <button
                 onClick={connectWallet}
-                className="w-full bg-white/30 hover:bg-white/40 text-white font-semibold py-2 px-4 rounded-lg transition-all flex items-center justify-center gap-2"
+                className="w-full bg-white/30 hover:bg-white/40 text-white font-semibold py-2 px-3 rounded-lg transition-all flex items-center justify-center gap-2 text-sm"
               >
-                <Wallet size={16} />
+                <Wallet size={14} />
                 Connect Wallet
               </button>
             )}
@@ -107,7 +110,7 @@ const KAIWidget = () => {
           {/* Total Earned */}
           <div className="text-center pt-2 border-t border-white/20">
             <div className="text-white/80 text-xs">Total Lifetime Earned</div>
-            <div className="text-white font-bold text-lg">
+            <div className="text-white font-bold text-sm">
               {totalEarned.toFixed(3)} KAI
             </div>
             <div className="text-white/70 text-xs">
@@ -116,7 +119,7 @@ const KAIWidget = () => {
           </div>
         </div>
         
-        <div className="mt-4 text-center">
+        <div className="mt-2 text-center">
           <div className="text-white/60 text-xs">
             Earn 0.1 KAI every 30 seconds of active usage
           </div>
