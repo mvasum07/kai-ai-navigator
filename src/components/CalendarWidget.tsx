@@ -1,78 +1,38 @@
 
-import React, { useState } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import React from 'react';
 
-const CalendarWidget = () => {
-  const [currentDate, setCurrentDate] = useState(new Date());
-  
-  const monthNames = [
-    'January', 'February', 'March', 'April', 'May', 'June',
-    'July', 'August', 'September', 'October', 'November', 'December'
-  ];
-  
-  const daysInMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate();
-  const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1).getDay();
-  
-  const previousMonth = () => {
-    setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1));
-  };
-  
-  const nextMonth = () => {
-    setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1));
-  };
-  
-  const days = [];
-  
-  // Empty cells for days before the first day of the month
-  for (let i = 0; i < firstDayOfMonth; i++) {
-    days.push(<div key={`empty-${i}`} className="p-2"></div>);
-  }
-  
-  // Days of the month
-  for (let day = 1; day <= daysInMonth; day++) {
-    const isToday = new Date().toDateString() === new Date(currentDate.getFullYear(), currentDate.getMonth(), day).toDateString();
-    days.push(
-      <div
-        key={day}
-        className={`p-2 text-center text-sm cursor-pointer rounded-lg transition-all hover:bg-white/20 ${
-          isToday ? 'bg-white/30 text-white font-bold' : 'text-white/90'
-        }`}
-      >
-        {day}
-      </div>
-    );
-  }
+const CalendarWidget = ({ style }: { style?: React.CSSProperties }) => {
+  // Simple calendar grid for the compact widget
+  const days = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+  const dates = Array.from({ length: 35 }, (_, i) => i + 1);
 
   return (
-    <div className="bg-gradient-to-br from-cyan-400 to-blue-600 p-6 rounded-2xl shadow-lg">
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-white font-bold text-xl">Calendar</h2>
+    <div 
+      className="h-full p-2"
+      style={style}
+    >
+      <div className="grid grid-cols-7 gap-1 mb-2">
+        {days.map((day, index) => (
+          <div key={index} className="text-center text-xs font-semibold text-gray-700">
+            {day}
+          </div>
+        ))}
       </div>
-      
-      <div className="bg-white/10 rounded-lg p-4 backdrop-blur-sm">
-        <div className="flex justify-between items-center mb-4">
-          <button onClick={previousMonth} className="text-white/80 hover:text-white">
-            <ChevronLeft size={20} />
-          </button>
-          <h3 className="text-white font-semibold">
-            {monthNames[currentDate.getMonth()]} {currentDate.getFullYear()}
-          </h3>
-          <button onClick={nextMonth} className="text-white/80 hover:text-white">
-            <ChevronRight size={20} />
-          </button>
-        </div>
-        
-        <div className="grid grid-cols-7 gap-1 mb-2">
-          {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map(day => (
-            <div key={day} className="p-2 text-center text-white/70 text-xs font-semibold">
-              {day}
-            </div>
-          ))}
-        </div>
-        
-        <div className="grid grid-cols-7 gap-1">
-          {days}
-        </div>
+      <div className="grid grid-cols-7 gap-1">
+        {dates.slice(0, 35).map((date, index) => (
+          <div
+            key={index}
+            className={`text-center text-xs p-1 rounded ${
+              date <= 31 
+                ? index < 5 
+                  ? 'bg-red-200 text-red-800' 
+                  : 'bg-blue-200 text-blue-800'
+                : 'text-transparent'
+            }`}
+          >
+            {date <= 31 ? date : ''}
+          </div>
+        ))}
       </div>
     </div>
   );

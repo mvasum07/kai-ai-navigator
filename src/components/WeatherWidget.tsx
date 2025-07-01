@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { MapPin, Thermometer, Clock } from 'lucide-react';
 
-const WeatherWidget = () => {
+const WeatherWidget = ({ style }: { style?: React.CSSProperties }) => {
   const [currentTime, setCurrentTime] = useState(new Date());
   const [location] = useState('San Francisco, CA');
   const [weather] = useState({
@@ -20,43 +20,20 @@ const WeatherWidget = () => {
   }, []);
 
   return (
-    <div className="mb-8">
-      <div className="bg-gray-600 rounded-xl p-4 mb-4 inline-flex items-center gap-3">
-        <MapPin className="text-white" size={20} />
-        <span className="text-white font-medium">Current Location</span>
-      </div>
-      
-      <div className="bg-gradient-to-r from-teal-400 to-green-500 rounded-2xl p-6 shadow-lg relative overflow-hidden mb-6">
-        <div className="absolute inset-0 bg-white/10 backdrop-blur-sm"></div>
-        <div className="relative z-10 text-center">
-          <h3 className="text-white font-bold text-xl mb-2">Weather</h3>
-          <div className="text-white/90 text-sm mb-3">{location}</div>
-          <div className="flex justify-center gap-8 mb-4">
-            <div className="bg-amber-500 text-white px-4 py-2 rounded-full font-semibold">
-              <div className="flex items-center gap-2">
-                <Thermometer size={16} />
-                <span>Data</span>
-              </div>
-            </div>
-            <div className="bg-amber-600 text-white px-4 py-2 rounded-full font-semibold">
-              <div className="flex items-center gap-2">
-                <Clock size={16} />
-                <span>Time</span>
-              </div>
-            </div>
-          </div>
-          <div className="grid grid-cols-2 gap-4 text-white/90 text-sm">
-            <div>
-              <div className="font-semibold">{weather.temperature}°F</div>
-              <div>{weather.condition}</div>
-            </div>
-            <div>
-              <div className="font-semibold">{currentTime.toLocaleTimeString()}</div>
-              <div>{currentTime.toLocaleDateString()}</div>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div 
+      className="h-full flex flex-col justify-center items-center text-center"
+      style={style}
+    >
+      <div className="text-gray-800 font-bold text-lg mb-2">{location}</div>
+      <div className="text-4xl font-bold text-gray-800 mb-1">{weather.temperature}°F</div>
+      <div className="text-gray-700 mb-2">{weather.condition}</div>
+      <div className="text-gray-600 text-sm">{currentTime.toLocaleTimeString()}</div>
+      <div className="text-gray-600 text-sm">{currentTime.toLocaleDateString('en-US', { 
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      })}</div>
     </div>
   );
 };
