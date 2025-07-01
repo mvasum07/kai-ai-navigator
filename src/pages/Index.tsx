@@ -7,16 +7,13 @@ import RemindersWidget from '../components/RemindersWidget';
 import NewsWidget from '../components/NewsWidget';
 import StocksCryptoWidget from '../components/StocksCryptoWidget';
 import WeatherWidget from '../components/WeatherWidget';
-import SocialLinks from '../components/SocialLinks';
 import KAIWidget from '../components/KAIWidget';
 import ResizableWidget from '../components/ResizableWidget';
 import ThemeCustomizer from '../components/ThemeCustomizer';
-import RecentActivity from '../components/RecentActivity';
 import BrainstormingWidget from '../components/BrainstormingWidget';
 import UserProfile from '../components/UserProfile';
 import Accounts from '../components/Accounts';
 import ChatBuddy from '../components/ChatBuddy';
-import SearchBar from '../components/SearchBar';
 import { useDashboardTheme } from '../contexts/DashboardThemeContext';
 
 const Index = () => {
@@ -27,12 +24,7 @@ const Index = () => {
       <Header />
       <ThemeCustomizer />
       
-      {/* Search Bar - Centered at top */}
-      <div className="fixed top-20 left-1/2 transform -translate-x-1/2 z-50">
-        <SearchBar />
-      </div>
-      
-      <div className="relative w-full h-screen pt-24">
+      <div className="relative w-full h-screen pt-20">
         {/* Left Sidebar */}
         <div className="fixed left-6 top-32 space-y-6">
           <UserProfile />
@@ -40,13 +32,8 @@ const Index = () => {
           <Accounts />
         </div>
 
-        {/* Right Sidebar */}
-        <div className="fixed right-6 top-32 space-y-6">
-          <SocialLinks />
-        </div>
-
         {/* Main Content Area - Grid Layout */}
-        <div className="absolute left-64 right-64 top-32 grid grid-cols-4 gap-6 px-6">
+        <div className="absolute left-64 right-12 top-32 grid grid-cols-4 gap-6 px-6">
           {/* Row 1 */}
           <div className="col-span-1">
             <ResizableWidget
@@ -153,11 +140,6 @@ const Index = () => {
               <BrainstormingWidget />
             </ResizableWidget>
           </div>
-        </div>
-
-        {/* Bottom Recent Activity */}
-        <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2">
-          <RecentActivity />
         </div>
       </div>
     </div>
