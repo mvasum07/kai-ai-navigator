@@ -27,111 +27,136 @@ const Index = () => {
       <Header />
       <ThemeCustomizer />
       
-      {/* Search Bar */}
-      <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50">
+      {/* Search Bar - Centered at top */}
+      <div className="fixed top-20 left-1/2 transform -translate-x-1/2 z-50">
         <SearchBar />
       </div>
       
-      <div className="relative w-full h-screen pt-16">
+      <div className="relative w-full h-screen pt-24">
         {/* Left Sidebar */}
-        <div className="fixed left-4 top-20 space-y-4">
+        <div className="fixed left-6 top-32 space-y-6">
           <UserProfile />
-          <Accounts />
-          <SocialLinks />
           <ChatBuddy />
+          <Accounts />
         </div>
 
-        {/* Main Content Area Widgets */}
-        <ResizableWidget
-          initialWidth={320}
-          initialHeight={280}
-          initialX={200}
-          initialY={100}
-          title="KAI Earnings"
-          widgetId="kai-earnings"
-        >
-          <KAIWidget />
-        </ResizableWidget>
+        {/* Right Sidebar */}
+        <div className="fixed right-6 top-32 space-y-6">
+          <SocialLinks />
+        </div>
 
-        <ResizableWidget
-          initialWidth={400}
-          initialHeight={200}
-          initialX={540}
-          initialY={100}
-          title="Weather"
-          widgetId="weather"
-        >
-          <WeatherWidget />
-        </ResizableWidget>
+        {/* Main Content Area - Grid Layout */}
+        <div className="absolute left-64 right-64 top-32 grid grid-cols-4 gap-6 px-6">
+          {/* Row 1 */}
+          <div className="col-span-1">
+            <ResizableWidget
+              initialWidth={280}
+              initialHeight={320}
+              initialX={0}
+              initialY={0}
+              title="KAI Earnings"
+              widgetId="kai-earnings"
+            >
+              <KAIWidget />
+            </ResizableWidget>
+          </div>
+          
+          <div className="col-span-2">
+            <ResizableWidget
+              initialWidth={580}
+              initialHeight={320}
+              initialX={0}
+              initialY={0}
+              title="Weather Dashboard"
+              widgetId="weather"
+            >
+              <WeatherWidget />
+            </ResizableWidget>
+          </div>
+          
+          <div className="col-span-1">
+            <ResizableWidget
+              initialWidth={280}
+              initialHeight={320}
+              initialX={0}
+              initialY={0}
+              title="Calendar"
+              widgetId="calendar"
+            >
+              <CalendarWidget />
+            </ResizableWidget>
+          </div>
 
-        <ResizableWidget
-          initialWidth={320}
-          initialHeight={300}
-          initialX={960}
-          initialY={100}
-          title="News"
-          widgetId="news"
-        >
-          <NewsWidget />
-        </ResizableWidget>
+          {/* Row 2 */}
+          <div className="col-span-1 mt-8">
+            <ResizableWidget
+              initialWidth={280}
+              initialHeight={280}
+              initialX={0}
+              initialY={0}
+              title="Notes"
+              widgetId="notes"
+            >
+              <NotesWidget />
+            </ResizableWidget>
+          </div>
+          
+          <div className="col-span-1 mt-8">
+            <ResizableWidget
+              initialWidth={280}
+              initialHeight={280}
+              initialX={0}
+              initialY={0}
+              title="News"
+              widgetId="news"
+            >
+              <NewsWidget />
+            </ResizableWidget>
+          </div>
+          
+          <div className="col-span-1 mt-8">
+            <ResizableWidget
+              initialWidth={280}
+              initialHeight={280}
+              initialX={0}
+              initialY={0}
+              title="Stocks/Crypto"
+              widgetId="stocks"
+            >
+              <StocksCryptoWidget />
+            </ResizableWidget>
+          </div>
+          
+          <div className="col-span-1 mt-8">
+            <ResizableWidget
+              initialWidth={280}
+              initialHeight={280}
+              initialX={0}
+              initialY={0}
+              title="Reminders"
+              widgetId="reminders"
+            >
+              <RemindersWidget />
+            </ResizableWidget>
+          </div>
 
-        <ResizableWidget
-          initialWidth={280}
-          initialHeight={250}
-          initialX={1300}
-          initialY={100}
-          title="Notes"
-          widgetId="notes"
-        >
-          <NotesWidget />
-        </ResizableWidget>
-
-        <ResizableWidget
-          initialWidth={280}
-          initialHeight={200}
-          initialX={1300}
-          initialY={370}
-          title="Reminders"
-          widgetId="reminders"
-        >
-          <RemindersWidget />
-        </ResizableWidget>
-
-        <ResizableWidget
-          initialWidth={350}
-          initialHeight={120}
-          initialX={1200}
-          initialY={590}
-          title="Calendar"
-          widgetId="calendar"
-        >
-          <CalendarWidget />
-        </ResizableWidget>
-
-        <ResizableWidget
-          initialWidth={380}
-          initialHeight={150}
-          initialX={1200}
-          initialY={730}
-          title="Stocks/Crypto"
-          widgetId="stocks"
-        >
-          <StocksCryptoWidget />
-        </ResizableWidget>
-
-        <ResizableWidget
-          initialWidth={350}
-          initialHeight={200}
-          initialX={1200}
-          initialY={900}
-          title="Brainstorming"
-          widgetId="brainstorming"
-        >
-          <BrainstormingWidget />
-        </ResizableWidget>
+          {/* Row 3 */}
+          <div className="col-span-4 mt-8">
+            <ResizableWidget
+              initialWidth={1200}
+              initialHeight={200}
+              initialX={0}
+              initialY={0}
+              title="Brainstorming"
+              widgetId="brainstorming"
+            >
+              <BrainstormingWidget />
+            </ResizableWidget>
+          </div>
+        </div>
 
         {/* Bottom Recent Activity */}
-        <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2">
+        <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2">
           <RecentActivity />
         </div>
       </div>

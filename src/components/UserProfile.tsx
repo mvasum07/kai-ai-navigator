@@ -1,29 +1,39 @@
 
-import React, { useState } from 'react';
-import { ChevronDown, User } from 'lucide-react';
+import React from 'react';
+import { User, Settings } from 'lucide-react';
 
 const UserProfile = () => {
-  const [isExpanded, setIsExpanded] = useState(false);
-
   return (
-    <div className="bg-gray-700/80 backdrop-blur-sm rounded-lg p-3 min-w-[140px]">
-      <button
-        onClick={() => setIsExpanded(!isExpanded)}
-        className="flex items-center justify-between w-full text-white"
-      >
-        <span className="flex items-center gap-2">
-          <User size={16} />
-          User Profile
-        </span>
-        <ChevronDown size={16} className={`transition-transform ${isExpanded ? 'rotate-180' : ''}`} />
-      </button>
-      
-      {isExpanded && (
-        <div className="mt-2 pt-2 border-t border-gray-600 space-y-1">
-          <div className="text-white/80 text-sm">Settings</div>
-          <div className="text-white/80 text-sm">Logout</div>
+    <div className="bg-gray-800/90 backdrop-blur-sm rounded-xl p-4 min-w-[200px] border border-gray-700/50">
+      <div className="flex items-center gap-3 mb-4">
+        <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+          <User size={24} className="text-white" />
         </div>
-      )}
+        <div>
+          <h3 className="text-white font-semibold">KAI User</h3>
+          <p className="text-gray-400 text-sm">Premium Member</p>
+        </div>
+      </div>
+      
+      <div className="space-y-2">
+        <div className="flex items-center justify-between text-sm">
+          <span className="text-gray-300">Status</span>
+          <span className="text-green-400 flex items-center gap-1">
+            <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+            Online
+          </span>
+        </div>
+        
+        <div className="flex items-center justify-between text-sm">
+          <span className="text-gray-300">KAI Tokens</span>
+          <span className="text-blue-400 font-medium">1,250</span>
+        </div>
+      </div>
+      
+      <button className="w-full mt-4 flex items-center justify-center gap-2 px-3 py-2 bg-gray-700/70 hover:bg-gray-700 text-white text-sm rounded-lg transition-colors">
+        <Settings size={16} />
+        Settings
+      </button>
     </div>
   );
 };

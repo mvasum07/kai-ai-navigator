@@ -1,38 +1,54 @@
 
-import React from 'react';
+import React, { useState } from 'react';
+import { Calendar } from '@/components/ui/calendar';
+import { format } from 'date-fns';
 
 const CalendarWidget = ({ style }: { style?: React.CSSProperties }) => {
-  // Simple calendar grid for the compact widget
-  const days = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
-  const dates = Array.from({ length: 35 }, (_, i) => i + 1);
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
 
   return (
     <div 
-      className="h-full p-2"
+      className="h-full flex flex-col"
       style={style}
     >
-      <div className="grid grid-cols-7 gap-1 mb-2">
-        {days.map((day, index) => (
-          <div key={index} className="text-center text-xs font-semibold text-gray-700">
-            {day}
-          </div>
-        ))}
+      <div className="text-center mb-4">
+        <h3 className="text-lg font-semibold text-white mb-2">
+          {selectedDate ? format(selectedDate, 'MMMM yyyy') : 'Calendar'}
+        </h3>
+        {selectedDate && (
+          <p className="text-white/80 text-sm">
+            Selected: {format(selectedDate, 'PPP')}
+          </p>
+        )}
       </div>
-      <div className="grid grid-cols-7 gap-1">
-        {dates.slice(0, 35).map((date, index) => (
-          <div
-            key={index}
-            className={`text-center text-xs p-1 rounded ${
-              date <= 31 
-                ? index < 5 
-                  ? 'bg-red-200 text-red-800' 
-                  : 'bg-blue-200 text-blue-800'
-                : 'text-transparent'
-            }`}
-          >
-            {date <= 31 ? date : ''}
-          </div>
-        ))}
+      
+      <div className="flex-1 flex items-center justify-center">
+        <Calendar
+          mode="single"
+          selected={selectedDate}
+          onSelect={setSelectedDate}
+          className="rounded-md border-none bg-white/10 backdrop-blur-sm text-white"
+          classNames={{
+            months: "flex flex-col",
+            month: "space-y-4",
+            caption: "flex justify-center pt-1 relative items-center text-white",
+            caption_label: "text-sm font-medium",
+            nav: "space-x-1 flex items-center",
+            nav_button: "h-7 w-7 bg-white/20 p-0 opacity-70 hover:opacity-100 text-white border-none",
+            nav_button_previous: "absolute left-1",
+            nav_button_next: "absolute right-1",
+            table: "w-full border-collapse space-y-1",
+            head_row: "flex",
+            head_cell: "text-white/70 rounded-md w-8 font-normal text-xs",
+            row: "flex w-full mt-2",
+            cell: "h-8 w-8 text-center text-sm p-0 relative hover:bg-white/20 rounded-md",
+            day: "h-8 w-8 p-0 font-normal text-white hover:bg-white/20 rounded-md",
+            day_selected: "bg-white/30 text-white font-semibold",
+            day_today: "bg-white/20 text-white font-semibold",
+            day_outside: "text-white/30",
+            day_disabled: "text-white/20",
+          }}
+        />
       </div>
     </div>
   );
