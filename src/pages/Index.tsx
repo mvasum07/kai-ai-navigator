@@ -8,7 +8,7 @@ import NewsWidget from '../components/NewsWidget';
 import StocksCryptoWidget from '../components/StocksCryptoWidget';
 import WeatherWidget from '../components/WeatherWidget';
 import KAIWidget from '../components/KAIWidget';
-import ResizableWidget from '../components/ResizableWidget';
+import StaticWidget from '../components/StaticWidget';
 import ThemeCustomizer from '../components/ThemeCustomizer';
 import BrainstormingWidget from '../components/BrainstormingWidget';
 import UserProfile from '../components/UserProfile';
@@ -33,112 +33,56 @@ const Index = () => {
         </div>
 
         {/* Main Content Area - Grid Layout */}
-        <div className="absolute left-64 right-12 top-32 grid grid-cols-4 gap-6 px-6">
+        <div className="ml-64 mr-12 mt-32 grid grid-cols-4 gap-6 px-6">
           {/* Row 1 */}
           <div className="col-span-1">
-            <ResizableWidget
-              initialWidth={280}
-              initialHeight={320}
-              initialX={0}
-              initialY={0}
-              title="KAI Earnings"
-              widgetId="kai-earnings"
-            >
+            <StaticWidget title="KAI Earnings" className="h-80">
               <KAIWidget />
-            </ResizableWidget>
+            </StaticWidget>
           </div>
           
           <div className="col-span-2">
-            <ResizableWidget
-              initialWidth={580}
-              initialHeight={320}
-              initialX={0}
-              initialY={0}
-              title="Weather Dashboard"
-              widgetId="weather"
-            >
+            <StaticWidget title="Weather Dashboard" className="h-80">
               <WeatherWidget />
-            </ResizableWidget>
+            </StaticWidget>
           </div>
           
           <div className="col-span-1">
-            <ResizableWidget
-              initialWidth={280}
-              initialHeight={320}
-              initialX={0}
-              initialY={0}
-              title="Calendar"
-              widgetId="calendar"
-            >
+            <StaticWidget title="Calendar" className="h-80">
               <CalendarWidget />
-            </ResizableWidget>
+            </StaticWidget>
           </div>
 
           {/* Row 2 */}
-          <div className="col-span-1 mt-8">
-            <ResizableWidget
-              initialWidth={280}
-              initialHeight={280}
-              initialX={0}
-              initialY={0}
-              title="Notes"
-              widgetId="notes"
-            >
+          <div className="col-span-1">
+            <StaticWidget title="Notes" className="h-70">
               <NotesWidget />
-            </ResizableWidget>
+            </StaticWidget>
           </div>
           
-          <div className="col-span-1 mt-8">
-            <ResizableWidget
-              initialWidth={280}
-              initialHeight={280}
-              initialX={0}
-              initialY={0}
-              title="News"
-              widgetId="news"
-            >
+          <div className="col-span-1">
+            <StaticWidget title="News" className="h-70">
               <NewsWidget />
-            </ResizableWidget>
+            </StaticWidget>
           </div>
           
-          <div className="col-span-1 mt-8">
-            <ResizableWidget
-              initialWidth={280}
-              initialHeight={280}
-              initialX={0}
-              initialY={0}
-              title="Stocks/Crypto"
-              widgetId="stocks"
-            >
+          <div className="col-span-1">
+            <StaticWidget title="Stocks/Crypto" className="h-70">
               <StocksCryptoWidget />
-            </ResizableWidget>
+            </StaticWidget>
           </div>
           
-          <div className="col-span-1 mt-8">
-            <ResizableWidget
-              initialWidth={280}
-              initialHeight={280}
-              initialX={0}
-              initialY={0}
-              title="Reminders"
-              widgetId="reminders"
-            >
+          <div className="col-span-1">
+            <StaticWidget title="Reminders" className="h-70">
               <RemindersWidget />
-            </ResizableWidget>
+            </StaticWidget>
           </div>
 
           {/* Row 3 */}
-          <div className="col-span-4 mt-8">
-            <ResizableWidget
-              initialWidth={1200}
-              initialHeight={200}
-              initialX={0}
-              initialY={0}
-              title="Brainstorming"
-              widgetId="brainstorming"
-            >
+          <div className="col-span-4">
+            <StaticWidget title="Brainstorming" className="h-50">
               <BrainstormingWidget />
-            </ResizableWidget>
+            </StaticWidget>
           </div>
         </div>
       </div>
