@@ -32,55 +32,53 @@ const Index = () => {
           <Accounts />
         </div>
 
-        {/* Main Content Area - Grid Layout */}
-        <div className="ml-64 mr-12 mt-32 grid grid-cols-4 gap-6 px-6">
-          {/* Row 1 */}
-          <div className="col-span-1">
-            <StaticWidget title="KAI Earnings" className="h-80">
-              <KAIWidget />
-            </StaticWidget>
-          </div>
-          
-          <div className="col-span-2">
-            <StaticWidget title="Weather Dashboard" className="h-80">
-              <WeatherWidget />
-            </StaticWidget>
-          </div>
-          
-          <div className="col-span-1">
-            <StaticWidget title="Calendar" className="h-80">
-              <CalendarWidget />
-            </StaticWidget>
-          </div>
-
-          {/* Row 2 */}
-          <div className="col-span-1">
-            <StaticWidget title="Notes" className="h-70">
-              <NotesWidget />
-            </StaticWidget>
-          </div>
-          
-          <div className="col-span-1">
-            <StaticWidget title="News" className="h-70">
-              <NewsWidget />
-            </StaticWidget>
-          </div>
-          
-          <div className="col-span-1">
-            <StaticWidget title="Stocks/Crypto" className="h-70">
-              <StocksCryptoWidget />
-            </StaticWidget>
-          </div>
-          
-          <div className="col-span-1">
-            <StaticWidget title="Reminders" className="h-70">
-              <RemindersWidget />
-            </StaticWidget>
+        {/* Main Content Area - Enhanced Grid Layout */}
+        <div className="ml-64 mr-8 mt-8 px-6">
+          {/* Top Row - Primary Widgets */}
+          <div className="grid grid-cols-3 gap-6 mb-6">
+            <div className="animate-fade-in" style={{ animationDelay: '0.1s' }}>
+              <StaticWidget title="KAI Earnings" className="h-80 hover-scale">
+                <KAIWidget />
+              </StaticWidget>
+            </div>
+            
+            <div className="animate-fade-in" style={{ animationDelay: '0.3s' }}>
+              <StaticWidget title="Stocks/Crypto" className="h-80 hover-scale">
+                <StocksCryptoWidget />
+              </StaticWidget>
+            </div>
+            
+            <div className="animate-fade-in" style={{ animationDelay: '0.5s' }}>
+              <StaticWidget title="Calendar" className="h-80 hover-scale">
+                <CalendarWidget />
+              </StaticWidget>
+            </div>
           </div>
 
-          {/* Row 3 */}
-          <div className="col-span-4">
-            <StaticWidget title="Brainstorming" className="h-50">
+          {/* Middle Row - Content Widgets */}
+          <div className="grid grid-cols-3 gap-6 mb-6">
+            <div className="animate-fade-in" style={{ animationDelay: '0.7s' }}>
+              <StaticWidget title="Notes" className="h-72 hover-scale">
+                <NotesWidget />
+              </StaticWidget>
+            </div>
+            
+            <div className="animate-fade-in" style={{ animationDelay: '0.9s' }}>
+              <StaticWidget title="News" className="h-72 hover-scale">
+                <NewsWidget />
+              </StaticWidget>
+            </div>
+            
+            <div className="animate-fade-in" style={{ animationDelay: '1.1s' }}>
+              <StaticWidget title="Reminders" className="h-72 hover-scale">
+                <RemindersWidget />
+              </StaticWidget>
+            </div>
+          </div>
+
+          {/* Bottom Row - Full Width */}
+          <div className="animate-fade-in" style={{ animationDelay: '1.3s' }}>
+            <StaticWidget title="Brainstorming" className="h-64 hover-scale">
               <BrainstormingWidget />
             </StaticWidget>
           </div>
