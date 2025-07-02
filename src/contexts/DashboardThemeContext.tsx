@@ -23,10 +23,34 @@ interface DashboardThemeContextType {
 
 const colorSchemes: ColorScheme[] = [
   {
-    id: 'modern-dark',
-    name: 'Modern Dark',
-    background: 'bg-[hsl(var(--dashboard-bg))]',
-    widgetDefault: 'bg-[hsl(var(--widget-bg))] border border-[hsl(var(--widget-border))]'
+    id: 'default',
+    name: 'Default',
+    background: 'bg-gradient-to-br from-gray-100 via-gray-50 to-gray-200 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900',
+    widgetDefault: 'bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500'
+  },
+  {
+    id: 'ocean',
+    name: 'Ocean',
+    background: 'bg-gradient-to-br from-blue-100 via-cyan-50 to-teal-100 dark:from-blue-900 dark:via-cyan-900 dark:to-teal-900',
+    widgetDefault: 'bg-gradient-to-br from-blue-400 via-cyan-500 to-teal-600'
+  },
+  {
+    id: 'sunset',
+    name: 'Sunset',
+    background: 'bg-gradient-to-br from-orange-100 via-red-50 to-pink-100 dark:from-orange-900 dark:via-red-900 dark:to-pink-900',
+    widgetDefault: 'bg-gradient-to-br from-orange-400 via-red-500 to-pink-600'
+  },
+  {
+    id: 'forest',
+    name: 'Forest',
+    background: 'bg-gradient-to-br from-green-100 via-emerald-50 to-teal-100 dark:from-green-900 dark:via-emerald-900 dark:to-teal-900',
+    widgetDefault: 'bg-gradient-to-br from-green-400 via-emerald-500 to-teal-600'
+  },
+  {
+    id: 'purple',
+    name: 'Purple Dream',
+    background: 'bg-gradient-to-br from-purple-100 via-violet-50 to-indigo-100 dark:from-purple-900 dark:via-violet-900 dark:to-indigo-900',
+    widgetDefault: 'bg-gradient-to-br from-purple-400 via-violet-500 to-indigo-600'
   }
 ];
 

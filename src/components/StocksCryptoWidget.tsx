@@ -3,98 +3,92 @@ import React, { useState } from 'react';
 import { Plus, TrendingUp, TrendingDown } from 'lucide-react';
 
 const StocksCryptoWidget = ({ style }: { style?: React.CSSProperties }) => {
-  const [activeTab, setActiveTab] = useState<'stocks' | 'crypto'>('stocks');
   const [stocks] = useState([
-    { symbol: 'AAPL', price: 185.25, change: +2.15, changePercent: +1.17 },
-    { symbol: 'GOOGL', price: 142.89, change: -1.23, changePercent: -0.85 }
+    { symbol: 'AAPL', name: 'Apple Inc.', price: 189.25, change: +2.34, changePercent: +1.25 },
+    { symbol: 'GOOGL', name: 'Alphabet Inc.', price: 142.56, change: -1.23, changePercent: -0.85 },
+    { symbol: 'TSLA', name: 'Tesla Inc.', price: 248.42, change: +5.67, changePercent: +2.34 }
   ]);
 
   const [cryptos] = useState([
-    { symbol: 'BTC', price: 43250.00, change: +1250.00, changePercent: +2.98 },
-    { symbol: 'ETH', price: 2634.50, change: -45.20, changePercent: -1.69 }
+    { symbol: 'BTC', name: 'Bitcoin', price: 43250.00, change: +1250.00, changePercent: +2.98 },
+    { symbol: 'ETH', name: 'Ethereum', price: 2634.50, change: -45.20, changePercent: -1.69 },
+    { symbol: 'ADA', name: 'Cardano', price: 0.487, change: +0.023, changePercent: +4.95 }
   ]);
 
   const formatPrice = (price: number) => {
     if (price < 1) return price.toFixed(3);
-    if (price > 1000) return price.toLocaleString();
     return price.toFixed(2);
   };
 
   const formatChange = (change: number) => {
-    return change > 0 ? `+$${Math.abs(change).toFixed(2)}` : `-$${Math.abs(change).toFixed(2)}`;
+    return change > 0 ? `+${change.toFixed(2)}` : change.toFixed(2);
   };
-
-  const formatChangePercent = (changePercent: number) => {
-    return changePercent > 0 ? `+${changePercent.toFixed(2)}%` : `${changePercent.toFixed(2)}%`;
-  };
-
-  const currentData = activeTab === 'stocks' ? stocks : cryptos;
 
   return (
     <div 
-      className="h-full flex flex-col p-4 bg-gradient-to-br from-gray-800 via-gray-900 to-black rounded-lg"
+      className="h-full flex flex-col p-4"
       style={style}
     >
-      {/* Header */}
-      <div className="mb-4">
-        <h3 className="text-white font-semibold text-lg mb-3">STOCKS/CRYPTO</h3>
-        
-        {/* Tabs and Add Button */}
-        <div className="flex items-center gap-2">
-          <button
-            onClick={() => setActiveTab('stocks')}
-            className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-              activeTab === 'stocks'
-                ? 'bg-blue-500 text-white'
-                : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
-            }`}
-          >
-            Stocks
-          </button>
-          <button
-            onClick={() => setActiveTab('crypto')}
-            className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-              activeTab === 'crypto'
-                ? 'bg-blue-500 text-white'
-                : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
-            }`}
-          >
-            Crypto
-          </button>
-          <button className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg font-medium transition-colors flex items-center gap-2">
-            <Plus size={16} />
-            ADD
-          </button>
-        </div>
+      {/* Header with Add Button */}
+      <div className="flex justify-between items-center mb-4">
+        <h3 className="text-white font-semibold text-lg">Stocks & Crypto</h3>
+        <button className="bg-blue-500 hover:bg-blue-600 text-white p-2 rounded-full transition-colors">
+          <Plus size={16} />
+        </button>
       </div>
 
-      {/* Data List */}
-      <div className="flex-1 space-y-3">
-        {currentData.map((item) => (
-          <div key={item.symbol} className="bg-gray-800/50 rounded-lg p-4">
-            <div className="flex justify-between items-center">
-              <div>
-                <div className="text-white font-bold text-lg">{item.symbol}</div>
-                <div className="text-white text-xl font-semibold">
-                  ${formatPrice(item.price)}
+      <div className="flex-1 overflow-y-auto space-y-4">
+        {/* Stocks Section */}
+        <div>
+          <h4 className="text-gray-300 text-sm font-medium mb-2">STOCKS</h4>
+          <div className="space-y-2">
+            {stocks.map((stock) => (
+              <div key={stock.symbol} className="bg-gray-800/50 rounded-lg p-3">
+                <div className="flex justify-between items-start">
+                  <div>
+                    <div className="text-white font-medium">{stock.symbol}</div>
+                    <div className="text-gray-400 text-xs">{stock.name}</div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-white font-medium">${formatPrice(stock.price)}</div>
+                    <div className={`text-xs flex items-center gap-1 ${
+                      stock.change >= 0 ? 'text-green-400' : 'text-red-400'
+                    }`}>
+                      {stock.change >= 0 ? <TrendingUp size={12} /> : <TrendingDown size={12} />}
+                      {formatChange(stock.change)} ({formatChange(stock.changePercent)}%)
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div className="text-right">
-                <div className={`flex items-center gap-1 text-sm font-medium ${
-                  item.change >= 0 ? 'text-green-400' : 'text-red-400'
-                }`}>
-                  {item.change >= 0 ? <TrendingUp size={14} /> : <TrendingDown size={14} />}
-                  {formatChangePercent(item.changePercent)}
-                </div>
-                <div className={`text-sm ${
-                  item.change >= 0 ? 'text-green-400' : 'text-red-400'
-                }`}>
-                  {formatChange(item.change)}
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
-        ))}
+        </div>
+
+        {/* Crypto Section */}
+        <div>
+          <h4 className="text-gray-300 text-sm font-medium mb-2">CRYPTO</h4>
+          <div className="space-y-2">
+            {cryptos.map((crypto) => (
+              <div key={crypto.symbol} className="bg-gray-800/50 rounded-lg p-3">
+                <div className="flex justify-between items-start">
+                  <div>
+                    <div className="text-white font-medium">{crypto.symbol}</div>
+                    <div className="text-gray-400 text-xs">{crypto.name}</div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-white font-medium">${formatPrice(crypto.price)}</div>
+                    <div className={`text-xs flex items-center gap-1 ${
+                      crypto.change >= 0 ? 'text-green-400' : 'text-red-400'
+                    }`}>
+                      {crypto.change >= 0 ? <TrendingUp size={12} /> : <TrendingDown size={12} />}
+                      {formatChange(crypto.change)} ({formatChange(crypto.changePercent)}%)
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );

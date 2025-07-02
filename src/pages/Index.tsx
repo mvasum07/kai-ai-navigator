@@ -8,7 +8,7 @@ import NewsWidget from '../components/NewsWidget';
 import StocksCryptoWidget from '../components/StocksCryptoWidget';
 import WeatherWidget from '../components/WeatherWidget';
 import KAIWidget from '../components/KAIWidget';
-import StaticWidget from '../components/StaticWidget';
+import ResizableWidget from '../components/ResizableWidget';
 import ThemeCustomizer from '../components/ThemeCustomizer';
 import BrainstormingWidget from '../components/BrainstormingWidget';
 import UserProfile from '../components/UserProfile';
@@ -32,55 +32,113 @@ const Index = () => {
           <Accounts />
         </div>
 
-        {/* Main Content Area - Enhanced Grid Layout */}
-        <div className="ml-64 mr-8 mt-8 px-6">
-          {/* Top Row - Primary Widgets */}
-          <div className="grid grid-cols-3 gap-6 mb-6">
-            <div className="animate-fade-in" style={{ animationDelay: '0.1s' }}>
-              <StaticWidget title="KAI Earnings" className="h-80 hover-scale">
-                <KAIWidget />
-              </StaticWidget>
-            </div>
-            
-            <div className="animate-fade-in" style={{ animationDelay: '0.3s' }}>
-              <StaticWidget title="Stocks/Crypto" className="h-80 hover-scale">
-                <StocksCryptoWidget />
-              </StaticWidget>
-            </div>
-            
-            <div className="animate-fade-in" style={{ animationDelay: '0.5s' }}>
-              <StaticWidget title="Calendar" className="h-80 hover-scale">
-                <CalendarWidget />
-              </StaticWidget>
-            </div>
+        {/* Main Content Area - Grid Layout */}
+        <div className="absolute left-64 right-12 top-32 grid grid-cols-4 gap-6 px-6">
+          {/* Row 1 */}
+          <div className="col-span-1">
+            <ResizableWidget
+              initialWidth={280}
+              initialHeight={320}
+              initialX={0}
+              initialY={0}
+              title="KAI Earnings"
+              widgetId="kai-earnings"
+            >
+              <KAIWidget />
+            </ResizableWidget>
+          </div>
+          
+          <div className="col-span-2">
+            <ResizableWidget
+              initialWidth={580}
+              initialHeight={320}
+              initialX={0}
+              initialY={0}
+              title="Weather Dashboard"
+              widgetId="weather"
+            >
+              <WeatherWidget />
+            </ResizableWidget>
+          </div>
+          
+          <div className="col-span-1">
+            <ResizableWidget
+              initialWidth={280}
+              initialHeight={320}
+              initialX={0}
+              initialY={0}
+              title="Calendar"
+              widgetId="calendar"
+            >
+              <CalendarWidget />
+            </ResizableWidget>
           </div>
 
-          {/* Middle Row - Content Widgets */}
-          <div className="grid grid-cols-3 gap-6 mb-6">
-            <div className="animate-fade-in" style={{ animationDelay: '0.7s' }}>
-              <StaticWidget title="Notes" className="h-72 hover-scale">
-                <NotesWidget />
-              </StaticWidget>
-            </div>
-            
-            <div className="animate-fade-in" style={{ animationDelay: '0.9s' }}>
-              <StaticWidget title="News" className="h-72 hover-scale">
-                <NewsWidget />
-              </StaticWidget>
-            </div>
-            
-            <div className="animate-fade-in" style={{ animationDelay: '1.1s' }}>
-              <StaticWidget title="Reminders" className="h-72 hover-scale">
-                <RemindersWidget />
-              </StaticWidget>
-            </div>
+          {/* Row 2 */}
+          <div className="col-span-1 mt-8">
+            <ResizableWidget
+              initialWidth={280}
+              initialHeight={280}
+              initialX={0}
+              initialY={0}
+              title="Notes"
+              widgetId="notes"
+            >
+              <NotesWidget />
+            </ResizableWidget>
+          </div>
+          
+          <div className="col-span-1 mt-8">
+            <ResizableWidget
+              initialWidth={280}
+              initialHeight={280}
+              initialX={0}
+              initialY={0}
+              title="News"
+              widgetId="news"
+            >
+              <NewsWidget />
+            </ResizableWidget>
+          </div>
+          
+          <div className="col-span-1 mt-8">
+            <ResizableWidget
+              initialWidth={280}
+              initialHeight={280}
+              initialX={0}
+              initialY={0}
+              title="Stocks/Crypto"
+              widgetId="stocks"
+            >
+              <StocksCryptoWidget />
+            </ResizableWidget>
+          </div>
+          
+          <div className="col-span-1 mt-8">
+            <ResizableWidget
+              initialWidth={280}
+              initialHeight={280}
+              initialX={0}
+              initialY={0}
+              title="Reminders"
+              widgetId="reminders"
+            >
+              <RemindersWidget />
+            </ResizableWidget>
           </div>
 
-          {/* Bottom Row - Full Width */}
-          <div className="animate-fade-in" style={{ animationDelay: '1.3s' }}>
-            <StaticWidget title="Brainstorming" className="h-64 hover-scale">
+          {/* Row 3 */}
+          <div className="col-span-4 mt-8">
+            <ResizableWidget
+              initialWidth={1200}
+              initialHeight={200}
+              initialX={0}
+              initialY={0}
+              title="Brainstorming"
+              widgetId="brainstorming"
+            >
               <BrainstormingWidget />
-            </StaticWidget>
+            </ResizableWidget>
           </div>
         </div>
       </div>
