@@ -1,19 +1,20 @@
 
 import React, { useState, useEffect } from 'react';
-import { Search, Moon, Sun, ExternalLink, MapPin, Droplets, Wind } from 'lucide-react';
+import { Search, Moon, Sun, ExternalLink, MapPin, Droplets, Wind, Loader2 } from 'lucide-react';
 import { useTheme } from '../contexts/ThemeContext';
+import { WeatherService, WeatherData } from '../services/weatherService';
+import WeatherAPIKeyModal from './WeatherAPIKeyModal';
 
 const Header = () => {
   const [url, setUrl] = useState('');
   const { isDarkMode, toggleDarkMode } = useTheme();
   const [currentTime, setCurrentTime] = useState(new Date());
-  const [location] = useState('San Francisco, CA');
-  const [weather] = useState({
-    temperature: 72,
-    condition: 'Partly Cloudy',
-    humidity: 65,
-    windSpeed: 8
-  });
+  const [weather, setWeather] = useState<WeatherData | null>(null);
+  const [isLoadingWeather, setIsLoadingWeather] = useState(false);
+  const [weatherError, setWeatherError] = useState<string | null>(null);
+  const [apiKey, setApiKey] = useState<string | null>(() => 
+    localStorage.getItem('weatherapi_key')
+  );
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -21,6 +22,53 @@ const Header = () => {
     }, 1000);
     return () => clearInterval(timer);
   }, []);
+
+  const fetchWeatherData = async (weatherApiKey: string) => {
+    try {
+      setIsLoadingWeather(true);
+      setWeatherError(null);
+      
+      const weatherService = new WeatherService(weatherApiKey);
+      
+      try {
+        // Try to get user's current location
+        const location = await WeatherService.getCurrentLocation();
+        const weatherData = await weatherService.getCurrentWeatherByCoords(
+          location.latitude, 
+          location.longitude
+        );
+        setWeather(weatherData);
+      } catch (locationError) {
+        // Fallback to a default location if geolocation fails
+        console.warn('Geolocation failed, using default location:', locationError);
+        const weatherData = await weatherService.getCurrentWeather('San Francisco, CA');
+        setWeather(weatherData);
+      }
+    } catch (error) {
+      setWeatherError(error instanceof Error ? error.message : 'Failed to fetch weather data');
+      console.error('Weather fetch error:', error);
+    } finally {
+      setIsLoadingWeather(false);
+    }
+  };
+
+  useEffect(() => {
+    if (apiKey) {
+      fetchWeatherData(apiKey);
+      // Refresh weather data every 10 minutes
+      const weatherInterval = setInterval(() => {
+        fetchWeatherData(apiKey);
+      }, 10 * 60 * 1000);
+      
+      return () => clearInterval(weatherInterval);
+    }
+  }, [apiKey]);
+
+  const handleApiKeySubmit = (newApiKey: string) => {
+    setApiKey(newApiKey);
+    localStorage.setItem('weatherapi_key', newApiKey);
+    fetchWeatherData(newApiKey);
+  };
 
   const formatTime = (date: Date) => {
     return date.toLocaleTimeString('en-US', { 
@@ -88,30 +136,59 @@ const Header = () => {
           </button>
           
           {/* Weather/Time Info */}
-          <div className="bg-slate-700/50 rounded-lg px-4 py-2 text-white">
+          <div className="bg-slate-700/50 rounded-lg px-4 py-2 text-white relative">
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-2">
                 <MapPin size={14} className="text-white/80" />
-                <span className="text-sm font-medium">{location}</span>
+                <span className="text-sm font-medium">
+                  {weather ? `${weather.location.name}, ${weather.location.region}` : 'Location'}
+                </span>
               </div>
+              
               <div className="text-right">
                 <div className="text-lg font-bold">{formatTime(currentTime)}</div>
                 <div className="text-xs text-white/70">{formatDate(currentTime)}</div>
               </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold">{weather.temperature}°F</div>
-                <div className="text-xs text-white/80">{weather.condition}</div>
-              </div>
-              <div className="flex gap-3 text-xs text-white/60">
-                <div className="flex items-center gap-1">
-                  <Droplets size={12} />
-                  <span>{weather.humidity}%</span>
+              
+              {isLoadingWeather ? (
+                <div className="flex items-center gap-2 text-white/70">
+                  <Loader2 size={16} className="animate-spin" />
+                  <span className="text-sm">Loading...</span>
                 </div>
-                <div className="flex items-center gap-1">
-                  <Wind size={12} />
-                  <span>{weather.windSpeed} mph</span>
+              ) : weatherError ? (
+                <div className="text-red-400 text-sm">
+                  Weather unavailable
                 </div>
-              </div>
+              ) : weather ? (
+                <>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold">{Math.round(weather.current.temp_f)}°F</div>
+                    <div className="text-xs text-white/80">{weather.current.condition.text}</div>
+                  </div>
+                  <div className="flex gap-3 text-xs text-white/60">
+                    <div className="flex items-center gap-1">
+                      <Droplets size={12} />
+                      <span>{weather.current.humidity}%</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <Wind size={12} />
+                      <span>{Math.round(weather.current.wind_mph)} mph</span>
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <div className="text-white/70 text-sm">
+                  No weather data
+                </div>
+              )}
+            </div>
+            
+            {/* API Key Settings */}
+            <div className="absolute top-2 right-2">
+              <WeatherAPIKeyModal 
+                onApiKeySubmit={handleApiKeySubmit}
+                hasApiKey={!!apiKey}
+              />
             </div>
           </div>
         </div>
