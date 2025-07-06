@@ -43,21 +43,19 @@ const NewsWidget = () => {
   };
 
   return (
-    <div className="bg-gradient-to-br from-yellow-300 via-orange-300 to-pink-400 p-6 rounded-2xl shadow-lg relative overflow-hidden">
-      <div className="absolute inset-0 bg-white/10 backdrop-blur-sm"></div>
-      <div className="relative z-10">
+    <div className="h-full flex flex-col p-4">
         <h2 className="text-white font-bold text-xl mb-4">CURRENT NEWS</h2>
         
-        <div className="space-y-3 max-h-80 overflow-y-auto">
+        <div className="space-y-3 flex-1 overflow-y-auto">
           {newsItems.map(item => (
-            <div key={item.id} className="bg-white/20 rounded-lg overflow-hidden">
+            <div key={item.id} className="bg-gray-700/30 hover:bg-gray-700/50 rounded-lg overflow-hidden transition-colors">
               <button
                 onClick={() => toggleNews(item.id)}
-                className="w-full p-4 text-left flex justify-between items-center hover:bg-white/10 transition-all"
+                className="w-full p-4 text-left flex justify-between items-center hover:bg-gray-600/50 transition-all"
               >
                 <div>
                   <h3 className="text-white font-semibold text-sm mb-1">{item.title}</h3>
-                  <span className="text-white/70 text-xs bg-white/20 px-2 py-1 rounded">
+                  <span className="text-gray-400 text-xs bg-gray-600/50 px-2 py-1 rounded">
                     {item.category}
                   </span>
                 </div>
@@ -70,7 +68,7 @@ const NewsWidget = () => {
               
               {expandedNews === item.id && (
                 <div className="px-4 pb-4">
-                  <p className="text-white/90 text-sm leading-relaxed">
+                  <p className="text-gray-300 text-sm leading-relaxed">
                     {item.summary}
                   </p>
                 </div>
@@ -78,7 +76,6 @@ const NewsWidget = () => {
             </div>
           ))}
         </div>
-      </div>
     </div>
   );
 };

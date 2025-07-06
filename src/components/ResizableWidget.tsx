@@ -199,9 +199,8 @@ const ResizableWidget: React.FC<ResizableWidgetProps> = ({
 
       {/* Content */}
       <div 
-        className={`w-full h-full overflow-hidden rounded-2xl ${widgetGradient} p-4 shadow-lg relative`}
+        className="w-full h-full overflow-hidden rounded-xl bg-gray-800/90 backdrop-blur-sm p-4 shadow-lg relative border border-gray-700/50"
       >
-        <div className="absolute inset-0 bg-white/10 backdrop-blur-sm rounded-2xl"></div>
         <div className="relative z-10 h-full">
           {React.cloneElement(children as React.ReactElement, {
             style: { width: '100%', height: '100%' }
