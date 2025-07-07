@@ -14,23 +14,39 @@ import BrainstormingWidget from '../components/BrainstormingWidget';
 import UserProfile from '../components/UserProfile';
 import Accounts from '../components/Accounts';
 import ChatBuddy from '../components/ChatBuddy';
+import WidgetPanel from '../components/WidgetPanel';
+import { Calendar, FileText, Bell, Newspaper, TrendingUp, Cloud, Lightbulb } from 'lucide-react';
 
 import { useDashboardTheme } from '../contexts/DashboardThemeContext';
 
 const Index = () => {
   const { currentScheme } = useDashboardTheme();
   const [widgets, setWidgets] = useState([
-    { id: 'kai-earnings', x: 0, y: 0, width: 280, height: 320 },
-    { id: 'weather', x: 300, y: 0, width: 580, height: 320 },
-    { id: 'calendar', x: 900, y: 0, width: 280, height: 320 },
-    { id: 'notes', x: 0, y: 340, width: 280, height: 280 },
-    { id: 'news', x: 300, y: 340, width: 280, height: 280 },
-    { id: 'stocks', x: 600, y: 340, width: 280, height: 280 },
-    { id: 'reminders', x: 900, y: 340, width: 280, height: 280 },
-    { id: 'brainstorming', x: 0, y: 640, width: 1200, height: 200 }
+    { id: 'kai-earnings', x: 0, y: 0, width: 280, height: 320 }
   ]);
   
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const availableWidgets = [
+    { id: 'weather', title: 'Weather', icon: <Cloud size={16} className="text-blue-400" /> },
+    { id: 'calendar', title: 'Calendar', icon: <Calendar size={16} className="text-green-400" /> },
+    { id: 'notes', title: 'Notes', icon: <FileText size={16} className="text-yellow-400" /> },
+    { id: 'news', title: 'News', icon: <Newspaper size={16} className="text-red-400" /> },
+    { id: 'stocks', title: 'Stocks/Crypto', icon: <TrendingUp size={16} className="text-purple-400" /> },
+    { id: 'reminders', title: 'Reminders', icon: <Bell size={16} className="text-orange-400" /> },
+    { id: 'brainstorming', title: 'Brainstorming', icon: <Lightbulb size={16} className="text-pink-400" /> }
+  ];
+
+  const addWidget = (widgetType: string) => {
+    const newWidget = {
+      id: `${widgetType}-${Date.now()}`,
+      x: Math.random() * 300,
+      y: Math.random() * 200,
+      width: widgetType === 'brainstorming' ? 600 : 280,
+      height: widgetType === 'brainstorming' ? 200 : 320
+    };
+    setWidgets(prev => [...prev, newWidget]);
+  };
 
 
   return (
@@ -51,8 +67,9 @@ const Index = () => {
           {/* Dynamic Widgets */}
           {widgets.map((widget) => {
             const getWidgetContent = (id: string) => {
-              switch (id) {
-                case 'kai-earnings':
+              const baseId = id.split('-')[0]; // Remove timestamp suffix
+              switch (baseId) {
+                case 'kai':
                   return { component: <KAIWidget />, title: 'KAI Earnings' };
                 case 'weather':
                   return { component: <WeatherWidget />, title: 'Weather Dashboard' };
@@ -90,6 +107,12 @@ const Index = () => {
             );
           })}
         </div>
+
+        {/* Widget Panel */}
+        <WidgetPanel 
+          onAddWidget={addWidget}
+          availableWidgets={availableWidgets}
+        />
       </div>
     </div>
   );
