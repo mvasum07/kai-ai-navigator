@@ -52,7 +52,8 @@ const ResizableWidget: React.FC<ResizableWidgetProps> = ({
   const { currentScheme, widgetThemes } = useDashboardTheme();
 
   // Get custom theme for this widget or use default
-  const widgetTheme = widgetThemes.find(t => t.widgetId === widgetId);
+  const baseWidgetId = widgetId.split('-')[0]; // Extract base widget type (remove timestamp)
+  const widgetTheme = widgetThemes.find(t => t.widgetId === baseWidgetId);
   const widgetGradient = widgetTheme ? widgetTheme.gradient : currentScheme.widgetDefault;
 
   const handleMouseDown = (e: React.MouseEvent, action: 'drag' | 'resize', direction?: string) => {
