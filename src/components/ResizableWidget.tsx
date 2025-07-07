@@ -212,11 +212,9 @@ const ResizableWidget: React.FC<ResizableWidgetProps> = ({
 
       {/* Content */}
       <div 
-        className="w-full h-full overflow-hidden rounded-xl shadow-lg relative border border-gray-700/50"
-        style={{
-          background: widgetGradient || 'rgba(31, 41, 55, 0.9)',
-          backdropFilter: 'blur(8px)'
-        }}
+        className={`w-full h-full overflow-hidden rounded-xl shadow-lg relative border border-gray-700/50 backdrop-blur-sm ${
+          widgetGradient || 'bg-gray-800/90'
+        }`}
       >
         <div className="relative z-10 h-full">
           {React.cloneElement(children as React.ReactElement, {
