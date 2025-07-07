@@ -28,7 +28,6 @@ const Index = () => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   const availableWidgets = [
-    { id: 'weather', title: 'Weather', icon: <Cloud size={16} className="text-blue-400" /> },
     { id: 'calendar', title: 'Calendar', icon: <Calendar size={16} className="text-green-400" /> },
     { id: 'notes', title: 'Notes', icon: <FileText size={16} className="text-yellow-400" /> },
     { id: 'news', title: 'News', icon: <Newspaper size={16} className="text-red-400" /> },
@@ -46,6 +45,10 @@ const Index = () => {
       height: widgetType === 'brainstorming' ? 200 : 320
     };
     setWidgets(prev => [...prev, newWidget]);
+  };
+
+  const removeWidget = (widgetId: string) => {
+    setWidgets(prev => prev.filter(widget => widget.id !== widgetId));
   };
 
 
@@ -101,6 +104,7 @@ const Index = () => {
                 initialY={widget.y}
                 title={title}
                 widgetId={widget.id}
+                onRemove={widget.id !== 'kai-earnings' ? removeWidget : undefined}
               >
                 {component}
               </ResizableWidget>

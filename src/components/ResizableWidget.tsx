@@ -1,6 +1,6 @@
 
 import React, { useState, useRef, useEffect } from 'react';
-import { Move } from 'lucide-react';
+import { Move, X } from 'lucide-react';
 import { useDashboardTheme } from '../contexts/DashboardThemeContext';
 
 interface ResizableWidgetProps {
@@ -13,6 +13,7 @@ interface ResizableWidgetProps {
   minHeight?: number;
   title?: string;
   widgetId: string;
+  onRemove?: (widgetId: string) => void;
 }
 
 const ResizableWidget: React.FC<ResizableWidgetProps> = ({
@@ -24,7 +25,8 @@ const ResizableWidget: React.FC<ResizableWidgetProps> = ({
   minWidth = 200,
   minHeight = 150,
   title = "Widget",
-  widgetId
+  widgetId,
+  onRemove
 }) => {
   const [dimensions, setDimensions] = useState({
     width: initialWidth,
@@ -153,12 +155,22 @@ const ResizableWidget: React.FC<ResizableWidgetProps> = ({
         zIndex: isDragging || isResizing ? 1000 : 1
       }}
     >
-      {/* Drag Handle */}
-      <div
-        className="absolute top-2 right-2 p-1 bg-black/20 rounded cursor-move opacity-0 group-hover:opacity-100 transition-opacity z-10"
-        onMouseDown={(e) => handleMouseDown(e, 'drag')}
-      >
-        <Move size={16} className="text-white" />
+      {/* Controls */}
+      <div className="absolute top-2 right-2 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity z-10">
+        {onRemove && (
+          <button
+            onClick={() => onRemove(widgetId)}
+            className="p-1 bg-red-600/80 hover:bg-red-600 rounded text-white transition-colors"
+          >
+            <X size={14} />
+          </button>
+        )}
+        <div
+          className="p-1 bg-black/20 rounded cursor-move"
+          onMouseDown={(e) => handleMouseDown(e, 'drag')}
+        >
+          <Move size={16} className="text-white" />
+        </div>
       </div>
 
       {/* Corner Resize Handles */}
@@ -199,7 +211,11 @@ const ResizableWidget: React.FC<ResizableWidgetProps> = ({
 
       {/* Content */}
       <div 
-        className="w-full h-full overflow-hidden rounded-xl bg-gray-800/90 backdrop-blur-sm p-4 shadow-lg relative border border-gray-700/50"
+        className="w-full h-full overflow-hidden rounded-xl shadow-lg relative border border-gray-700/50"
+        style={{
+          background: widgetGradient || 'rgba(31, 41, 55, 0.9)',
+          backdropFilter: 'blur(8px)'
+        }}
       >
         <div className="relative z-10 h-full">
           {React.cloneElement(children as React.ReactElement, {
