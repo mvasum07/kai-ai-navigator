@@ -37,9 +37,9 @@ const NotesWidget = ({ style }: { style?: React.CSSProperties }) => {
         <h2 className="text-white font-bold text-lg">Notes</h2>
         <button
           onClick={() => setNewNote('New Note')}
-          className="bg-white/20 hover:bg-white/30 text-white px-2 py-1 rounded-lg text-xs transition-all"
+          className="bg-white/20 hover:bg-white/30 text-white p-2 rounded-lg transition-all"
         >
-          New Notes
+          <Plus size={16} />
         </button>
       </div>
       
