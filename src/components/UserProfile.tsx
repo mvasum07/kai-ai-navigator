@@ -28,6 +28,16 @@ const UserProfile = () => {
           <span className="text-gray-300">KAI Tokens</span>
           <span className="text-blue-400 font-medium">1,250</span>
         </div>
+        
+        <div className="flex items-center justify-between text-sm">
+          <span className="text-gray-300">Earnings (24h)</span>
+          <span className="text-green-400 font-medium">+$125.40</span>
+        </div>
+        
+        <div className="flex items-center justify-between text-sm">
+          <span className="text-gray-300">Total Earnings</span>
+          <span className="text-yellow-400 font-medium">$3,847.20</span>
+        </div>
       </div>
       
       <button className="w-full mt-4 flex items-center justify-center gap-2 px-3 py-2 bg-gray-700/70 hover:bg-gray-700 text-white text-sm rounded-lg transition-colors">

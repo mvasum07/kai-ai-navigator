@@ -21,9 +21,7 @@ import { useDashboardTheme } from '../contexts/DashboardThemeContext';
 
 const Index = () => {
   const { currentScheme } = useDashboardTheme();
-  const [widgets, setWidgets] = useState([
-    { id: 'kai-earnings', x: 0, y: 0, width: 280, height: 320 }
-  ]);
+  const [widgets, setWidgets] = useState([]);
   
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -120,7 +118,7 @@ const Index = () => {
                 initialY={widget.y}
                 title={title}
                 widgetId={widget.id}
-                onRemove={widget.id !== 'kai-earnings' ? removeWidget : undefined}
+                onRemove={removeWidget}
               >
                 {component}
               </ResizableWidget>
