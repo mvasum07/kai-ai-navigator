@@ -33,7 +33,7 @@ const NotesWidget = ({ style }: { style?: React.CSSProperties }) => {
       className="h-full flex flex-col"
       style={style}
     >
-      <div className="flex justify-between items-center mb-3">
+      <div className="flex justify-between items-center mb-3 pr-16">
         <h2 className="text-white font-bold text-lg">Notes</h2>
         <button
           onClick={() => setNewNote('New Note')}
