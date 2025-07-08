@@ -35,7 +35,7 @@ const ThemeCustomizer = () => {
     return (
       <button
         onClick={() => setIsOpen(true)}
-        className="fixed top-20 right-4 z-50 bg-white dark:bg-gray-800 p-3 rounded-full shadow-lg hover:shadow-xl transition-all border border-gray-200 dark:border-gray-700"
+        className="fixed top-20 right-4 z-40 bg-white dark:bg-gray-800 p-3 rounded-full shadow-lg hover:shadow-xl transition-all border border-gray-200 dark:border-gray-700"
         title="Customize Theme"
       >
         <Palette size={20} className="text-gray-600 dark:text-gray-300" />
@@ -44,7 +44,7 @@ const ThemeCustomizer = () => {
   }
 
   return (
-    <div className="fixed top-20 right-4 z-50 bg-white dark:bg-gray-800 rounded-xl shadow-2xl border border-gray-200 dark:border-gray-700 w-80 max-h-96 overflow-hidden">
+    <div className="fixed top-20 right-4 z-40 bg-white dark:bg-gray-800 rounded-xl shadow-2xl border border-gray-200 dark:border-gray-700 w-80 max-h-96 overflow-hidden">
       <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
         <h3 className="font-semibold text-gray-800 dark:text-gray-200">Theme Customizer</h3>
         <button
