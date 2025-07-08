@@ -66,7 +66,7 @@ const StocksCryptoWidget = ({ style }: { style?: React.CSSProperties }) => {
       style={style}
     >
       {/* Header with Add Button */}
-      <div className="flex justify-between items-center mb-4">
+      <div className="flex justify-between items-center mb-4 pr-16">
         <h3 className="text-white font-semibold text-lg">Stocks & Crypto</h3>
         <Dialog>
           <DialogTrigger asChild>
